@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/mainLayout.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+        span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="mainFragment" class="w-50 mx-auto">
+    <h4 class="text-center" style="color: red;" th:if="${!req.isHandled()}">*** Новая необработанная заявка ***</h4>
+    <h4 class="text-center" style="color: green;" th:unless="${!req.isHandled()}">Обработанная заявка</h4>
+
+    <form th:action="@{'/details'}" method="post">
+        <input type="hidden" name="id" th:value="${req.getId()}">
+
+        <label class="form-label">ФИО:</label>
+        <input class="form-control" type="text" name="username" disabled th:value="${req.getUserName()}">
+
+        <label class="form-label">Курс:</label>
+        <select class="form-select" name="course" disabled>
+            <option disabled selected th:text="${req.getCourseName()}"></option>
+        </select>
+
+        <label class="form-label">Телефон:</label>
+        <input class="form-control" type="text" name="phone" disabled th:value="${req.getPhone()}">
+
+        <label class="form-label">Комментарии:</label>
+        <textarea class="form-control" type="text" name="comment" disabled th:text="${req.getCommentary()}"></textarea>
+        <br>
+        <div>
+            <button class="btn btn-success" type="submit" name="action" value="handle" th:if="${!req.isHandled()}">Обработать заявку</button>
+            <button class="btn btn-danger" type="submit" name="action" value="delete">Удалить заявку</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="/js/bootstrap.bundle.js"></script>
+</body>
+</html>
