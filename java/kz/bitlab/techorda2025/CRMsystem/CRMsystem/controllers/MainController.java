@@ -2,6 +2,7 @@ package kz.bitlab.techorda2025.CRMsystem.CRMsystem.controllers;
 
 import kz.bitlab.techorda2025.CRMsystem.CRMsystem.repositories.ApplicationRequest;
 import kz.bitlab.techorda2025.CRMsystem.CRMsystem.repositories.CourseRepo;
+import kz.bitlab.techorda2025.CRMsystem.CRMsystem.repositories.Courses;
 import kz.bitlab.techorda2025.CRMsystem.CRMsystem.repositories.ReqRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,13 +45,13 @@ public class MainController {
     }
     @PostMapping(value = "/addReq")
     public String addReq(@RequestParam(name = "username") String username,
-                         @RequestParam(name = "course") String course,
+                         @RequestParam(name = "course") Long courseId,
                          @RequestParam(name = "phone") String phone,
                          @RequestParam(name = "comment") String comment) {
-
+        Courses courseSelected = courseRepo.findById(courseId).orElse(null);
         ApplicationRequest req = ApplicationRequest.builder()
                 .userName(username)
-                .courseName(course)
+                .course(courseSelected)
                 .phone(phone)
                 .commentary(comment)
                 .handled(false)
