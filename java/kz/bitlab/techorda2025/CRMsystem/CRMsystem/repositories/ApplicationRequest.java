@@ -15,8 +15,9 @@ public class ApplicationRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String userName;
-    private String courseName;
     private String commentary;
     private String phone;
     private boolean handled; //false — не обработан
+    @ManyToOne
+    private Courses course;
 }
