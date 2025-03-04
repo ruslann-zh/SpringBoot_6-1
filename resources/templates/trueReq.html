@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Заявка от <span th:text="${req.getUserName()}"></span></h5>
-                    <h6 class="card-text mt-4 opacity-50">Курс: <span th:text="${req.getCourseName()}"></span></h6>
+                    <h6 class="card-text mt-4 opacity-50">Курс: <span th:text="${req.getCourse().getName()}"></span></h6>
                     <div class="card-text" th:text="${req.getCommentary()}"></div>
                     <div class="card-text fw-bold mt-3">Тел: <span th:text="${req.getPhone()}"></span>
                         <a th:href="@{'/details/' + ${req.getId()}}" class="ms-3 fw-normal">Подробнее</a>
