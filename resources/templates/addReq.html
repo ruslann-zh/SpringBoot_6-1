@@ -25,7 +25,8 @@
         <label class="form-label">Курс:</label>
         <select class="form-select" name="course">
             <option disabled selected>Выберите курс</option>
-            <option th:each="course: ${courses}" th:text="${course.getName()}"></option>
+            <option th:each="c: ${courses}" th:text="${c.getName()} +' – '+ ${c.getPrice()} +' USD'"
+                    th:value="${c.getId()}"></option>
         </select>
 
         <label class="form-label">Телефон:</label>
