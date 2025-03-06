@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/mainLayout.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+        span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="mainFragment" class="w-50 mx-auto">
+    <h4 class="text-center" style="color: red;" th:if="${!req.isHandled()}">*** Новая необработанная заявка ***</h4>
+    <h4 class="text-center" style="color: green;" th:unless="${!req.isHandled()}">Обработанная заявка</h4>
+
+    <form th:action="@{'/details'}" method="post">
+        <input type="hidden" name="id" th:value="${req.getId()}">
+
+        <label class="form-label">ФИО:</label>
+        <input class="form-control" type="text" name="username" disabled th:value="${req.getUserName()}">
+
+        <label class="form-label">Курс:</label>
+        <select class="form-select" name="course" disabled>
+            <option disabled selected th:text="${req.getCourse().getName()} +' – '+ ${req.getCourse().getPrice()} +' USD'"></option>
+        </select>
+
+        <label class="form-label">Телефон:</label>
+        <input class="form-control" type="text" name="phone" disabled th:value="${req.getPhone()}">
+
+        <label class="form-label">Комментарии:</label>
+        <textarea class="form-control" type="text" name="comment" disabled th:text="${req.getCommentary()}"></textarea>
+        <br>
+        <div>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    th:if="${!req.isHandled()}">Обработать заявку</button>
+            <div class="modal fade modal-lg" id="exampleModal" tabindex="1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Выберите оператора</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Выбрать</th>
+                                    <th scope="col">Имя</th>
+                                    <th scope="col">Фамилия</th>
+                                    <th scope="col">Департмент</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="o: ${operators}">
+                                    <td><input type="checkbox" name="selectedOpers" th:value="${o.getId()}"></td>
+                                    <td th:text="${o.getName()}"></td>
+                                    <td th:text="${o.getSurname()}"></td>
+                                    <td th:text="${o.getDepartment()}"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                            <button type="submit" class="btn btn-primary" name="action" value="handle">Назначить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-danger" type="submit" name="action" value="delete">Удалить заявку</button>
+        </div>
+    </form>
+
+    <form th:action="@{'/deleteOperators'}" method="post">
+        <table class="table" th:if="${req.isHandled()}">
+            <thead>
+            <tr>
+                <th>Удалить</th>
+                <th>Имя</th>
+                <th>Фамилия</th>
+                <th>Департамент</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="o : ${req.getOperators()}">
+                <td>
+                    <input type="hidden" name="removeOpersId" th:value="${o.getId()}">
+                    <input type="hidden" name="id" th:value="${req.getId()}">
+                    <button type="submit" class="btn btn-danger btn-sm">✖</button>
+                </td>
+                <td th:text="${o.getName()}"></td>
+                <td th:text="${o.getSurname()}"></td>
+                <td th:text="${o.getDepartment()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script type="text/javascript" src="/js/bootstrap.bundle.js"></script>
+</body>
+</html>

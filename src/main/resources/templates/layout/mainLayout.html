@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg" data-bs-theme="dark" style="background-color: rgb(11,114,97);">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{'/'}">CRM Система</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{'/'}">Все заявки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{'/falseReq'}">Новые заявки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{'/trueReq'}">Обработанные заявки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" th:href="@{'/addReq'}">+ Добавить заявку</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container mt-5">
+    <div layout:fragment="mainFragment">
+
+    </div>
+</div>
+<script type="text/javascript" src="/js/bootstrap.bundle.js"></script>
+</body>
+</html>

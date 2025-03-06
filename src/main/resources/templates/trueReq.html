@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/mainLayout.html">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+        span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="mainFragment">
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col" th:each="req : ${requests}" th:if="${req.isHandled()}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Заявка от <span th:text="${req.getUserName()}"></span></h5>
+                    <h6 class="card-text mt-4 opacity-50">Курс: <span th:text="${req.getCourse().getName()}"></span></h6>
+                    <div class="card-text" th:text="${req.getCommentary()}"></div>
+                    <div class="card-text fw-bold mt-3">Тел: <span th:text="${req.getPhone()}"></span>
+                        <a th:href="@{'/details/' + ${req.getId()}}" class="ms-3 fw-normal">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/bootstrap.bundle.js"></script>
+</body>
+</html>
